@@ -33,10 +33,18 @@ def repack(path):
     if r:
         raise RuntimeError('An error occurred, note that this requires Java 7')
 
+def install(path):
+    #./adb install -r WearScript-release/dist/WearScript-release.apk
+    print "Installing"
+    p = subprocess.Popen(['./adb', 'install', '-r', path + '/dist/WearScript-release.apk'], stdout=LOG_OUTFILE)
+    r = p.wait()
+    if r:
+        raise RuntimeError('An error occurred, note that this requires Java 7')
+
 def sign(path):
     print "Signing"
     apk_repacked_path = path + '/dist/' + path.rsplit('/', 1)[1] + '.apk'
-    args = ['jarsigner', '-verbose', '-sigalg', 'SHA1withRSA', '-digestalg', 'SHA1', '-storepass', 'asdfasdf', '-keystore', os.path.join(scriptpath,'debug.keystore'), apk_repacked_path, 'android']
+    args = ['jarsigner', '-verbose', '-sigalg', 'SHA1withRSA', '-digestalg', 'SHA1', '-storepass', 'android', '-keystore', os.path.join(scriptpath,'debug.keystore'), apk_repacked_path, 'androiddebugkey']
     p = subprocess.Popen(args, stdout=LOG_OUTFILE)
     r = p.wait()
     if r:
@@ -122,6 +130,7 @@ def main():
         print "Not calling get_gist"
     repack(path)
     sign(path)
+    install(path)
     LOG_OUTFILE.close()
 
 if __name__ == '__main__':
