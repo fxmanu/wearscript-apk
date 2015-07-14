@@ -20,3 +20,7 @@ First deployment
 Redeploy
 
     ./adb install -r WearScript-release.apk
+
+Visit playground
+
+    https://api.wearscript.com
