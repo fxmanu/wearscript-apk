@@ -107,13 +107,17 @@ def main():
     parser.add_argument('--boot', action='store_true')
     parser.add_argument('--no_package_name_change', action='store_true')
     parser.add_argument('--exclude_gist', action='store_true', help='Do not include gist files in package')
+    parser.add_argument('--use_unpacked', action='store_true', help='Use already unpacked data (WearScript-Release directory)')
     args = parser.parse_args()
     apk = os.path.abspath(args.apk)
     path = os.path.abspath(apk.rsplit('.', 1)[0])
     gist = args.gist
-    remove_old(path)
     print "For detailed output see logfile " + log_outfile_name
-    unpack(apk)
+    if not args.use_unpacked:
+        remove_old(path)
+        unpack(apk)
+    else:
+        print "Using already unpacked WearScript-Release"
     if args.trigger:
         print "Using trigger phrase '%s'" % args.trigger
         replace_trigger(path, args.trigger)
