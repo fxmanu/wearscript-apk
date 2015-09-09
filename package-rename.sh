@@ -84,7 +84,7 @@ echo `ls -l $pathToNewApk`
 # debug.keystore is file, assumed to be in current directory
 export newName=$truncatedName-renamed.apk
 
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $SCRIPTPATH/debug.keystore $pathToNewApk androiddebugkey
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass android -keystore $SCRIPTPATH/debug.keystore $pathToNewApk androiddebugkey
 cp $pathToNewApk $newName
 
 #

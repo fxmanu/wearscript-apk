@@ -36,7 +36,7 @@ def repack(path):
 def install(path):
     #./adb install -r WearScript-release/dist/WearScript-release.apk
     print "Installing"
-    p = subprocess.Popen(['./adb', 'install', '-r', path + '/dist/WearScript-release.apk'], stdout=LOG_OUTFILE)
+    p = subprocess.Popen(['./adb', 'install', '-r', path + '/dist/glass-release.apk'], stdout=LOG_OUTFILE)
     r = p.wait()
     if r:
         raise RuntimeError('An error occurred, note that this requires Java 7')
@@ -53,7 +53,7 @@ def sign(path):
 
 def replace_trigger(path, trigger):
     xml_path = path + '/res/values/strings.xml'
-    xml_data = open(xml_path).read().replace('wear a script', trigger).replace('>WearScript<', '>WearScript(%s)<' % trigger)
+    xml_data = open(xml_path).read().replace('wear a script', trigger).replace('>WearScript Glass<', '>WearScript(%s)<' % trigger)
     open(xml_path, 'w').write(xml_data)
 
 def replace_manifest_package(path, gist):
