@@ -2,4 +2,5 @@
 
 export SCRIPTPATH=$( cd $(dirname $0) ; pwd -P )
 
-python $SCRIPTPATH/repack.py "$@"
+#python $SCRIPTPATH/repack.py "$@"
+python $SCRIPTPATH/repack.py --exclude_gist --trigger wallaby glass-release.apk wallaby
